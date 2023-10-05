@@ -11,6 +11,9 @@
 
     <!--Todo imagen-->
 
+
+    <img  mat-card-image [src]="hero | heroImage" [alt]="hero.superhero">
+
     <mat-card-content class="mt-2">
         <h4>{{hero.publisher}}</h4>
         <p>
@@ -40,7 +43,7 @@
 
     <button mat-button  
             mat-raised
-            [routerLink]="['heroes', hero.id]">
+            [routerLink]="['/heroes', hero.id]">
             <mat-icon>more_horiz</mat-icon>
                 Más
     </button>
