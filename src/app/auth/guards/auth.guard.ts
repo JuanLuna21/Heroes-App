@@ -1,25 +1,21 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn,  CanMatchFn, Route, RouterStateSnapshot, UrlSegment } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivateFn, CanMatchFn, Route, RouterStateSnapshot, UrlSegment } from "@angular/router";
 
-@Injectable({providedIn: 'root'})
-
-export class AuthGuard implements CanActivateFn, CanMatchFn {
-
-    constructor() { }
-
-    CanMatchFn (route: Route, segments: UrlSegment[] ): boolean | Observable<boolean>   {
-
-        throw new Error('Method no implemented');
-        
-    }
-
-    CanActivateFn (route: ActivatedRouteSnapshot, state: RouterStateSnapshot):boolean | Observable<boolean> {
-        
-        throw new Error("Method no implemented");
-        
-    }
-
-    
-    
-}
+export const canActivateGuard: CanActivateFn = ( 
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+        ) => {
+             console.log('CanActivate');
+            console.log({ route, state });
+     
+        return false;
+    };
+     
+ 
+export const canMatchGuard: CanMatchFn = (
+            route: Route,
+            segments: UrlSegment[]
+            ) => {
+                console.log('CanMatch');
+                console.log({ route, segments });
+ return false;
+};    
