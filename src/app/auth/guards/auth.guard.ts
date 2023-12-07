@@ -6,12 +6,12 @@ import { AuthService } from '../services/auth.service';
  
 export const canActivateGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
  
-  return true;
+  return checkAuthStatus();
 };
  
 export const canMatchGuard: CanMatchFn = (route: Route, segments: UrlSegment[]) => {
 
-  return true;
+  return checkAuthStatus();
 };
  
 const checkAuthStatus = (): boolean | Observable<boolean> => {
