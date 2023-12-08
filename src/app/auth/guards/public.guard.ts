@@ -9,7 +9,7 @@ const checkAuthStatus = (): boolean | Observable<boolean> => {
  
   return authService.checkAuthentication().pipe(
     tap((isAuthenticated) => {
-      if (!isAuthenticated) {
+      if (isAuthenticated) {
         router.navigate(['./'])
       }
     }),
