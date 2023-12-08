@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { HeroesService } from '../../services/heroes.service';
-import { Hero } from '../../interfaces/heroe.interface';
+import { Hero } from '../../interfaces/hero.interface';
 
 @Component({
   selector: 'app-search-page',
