@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { HeroesService } from '../../services/heroes.service';
 import { Hero, Publisher } from '../../interfaces/hero.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-new-page',
@@ -18,7 +20,6 @@ export class NewPageComponent  implements OnInit{
 
   public heroForm = new FormGroup ({
     
-
     id: new FormControl<string>(''),
     superhero: new FormControl<string>('', {nonNullable: true}),
     publisher: new FormControl<Publisher>(Publisher.DCComics),
@@ -34,7 +35,12 @@ export class NewPageComponent  implements OnInit{
     {id: 'Marvel Comics', desc: 'Marvel-Comics'},
   ]
 
-  constructor(private heroesService: HeroesService, private activatedRoute: ActivatedRoute, private route: Router, private snackbar: MatSnackBar){}
+  constructor(private heroesService: HeroesService, 
+              private activatedRoute: ActivatedRoute, 
+              private route: Router, 
+              private snackbar: MatSnackBar,
+              private dialog: MatDialog,
+              ){}
 
 
   ngOnInit(): void {
@@ -78,6 +84,27 @@ export class NewPageComponent  implements OnInit{
     })
 
     }
+
+
+    onDeleteHero(): void{
+
+      if ( !this.currentHero.id) throw Error ('Hero id is required');
+    
+      const dialogRef = this.dialog.open(ConfirmDialogComponent,{
+        data: this.heroForm.value
+      })
+
+      dialogRef.afterClosed().subscribe( result => {
+        if(!result) return;
+        this.heroesService.deleteHeroById(this.currentHero.id).subscribe(
+          wasDeleted => {
+            if (wasDeleted)
+            this.route.navigate(['/heroes']);
+          }
+        )
+      })
+
+  }
 
     showSnackBar( message: string): void{
       this.snackbar.open(message, 'done', {

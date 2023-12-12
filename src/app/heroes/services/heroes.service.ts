@@ -34,22 +34,22 @@ export class HeroesService {
 
     //END POINTS:
 
-    addHero(hero: Hero): Observable<Hero[]> {
+    addHero(hero: Hero): Observable<Hero> {
         
-        return this.http.post<Hero[]>(`${this.baseUrl}/heroes`, hero);
+        return this.http.post<Hero>(`${this.baseUrl}/heroes`, hero);
     }
 
-    updateHero( hero: Hero ): Observable<Hero[]> {
+    updateHero( hero: Hero ): Observable<Hero> {
         if (!hero.id) throw Error ('Hero id is requerid');
-        return this.http.patch<Hero[]>(`${this.baseUrl}/heroes/${hero.id}`, hero);
+        return this.http.patch<Hero>(`${this.baseUrl}/heroes/${hero.id}`, hero);
     }
 
     deleteHeroById(id: string): Observable<boolean> {
         
         return this.http.delete(`${ this.baseUrl }/heroes/${ id }`)
             .pipe(
+                map( resp => true),
                 catchError(err => of (false) ),
-                map( resp => true)
             );
     }
 
